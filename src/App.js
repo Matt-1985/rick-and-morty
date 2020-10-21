@@ -4,6 +4,7 @@ import { createElement } from "./utils/elements";
 import Character from "./components/character";
 import { getAllCharacters } from "./utils/api";
 import Characters from "./components/characters";
+import Search from "./components/Search";
 
 //console.log(getAllCharacters());
 
@@ -35,7 +36,7 @@ function App() {
     main.innerHTML = "";
     main.append(...newCharacters); //"newCharacters" wir nun an "main" geheftet (spread operator) / warum nicht als children?
   }
-  const searchBar = createElement("input", {
+  const Search = createElement("input", {
     className: "searchbar",
     onkeydown: (event) => getCharacters(event.target.value), //mit tastatureingabe wird geprüft ob es einen ausgabe wert gibt
   });
@@ -44,7 +45,7 @@ function App() {
 
   const container = createElement("div", {
     className: "container",
-    children: [header, searchBar, main], //warum wird nicht appended?
+    children: [header, Search, main], //warum wird nicht appended?
   });
 
   return container;
