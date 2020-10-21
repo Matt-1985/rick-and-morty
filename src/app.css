@@ -12,3 +12,9 @@ body {
   margin: 0;
   background: darkslategray;
 }
+
+.main {
+  padding: 20px 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
