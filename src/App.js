@@ -36,16 +36,16 @@ function App() {
     main.innerHTML = "";
     main.append(...newCharacters); //"newCharacters" wir nun an "main" geheftet (spread operator) / warum nicht als children?
   }
-  const Search = createElement("input", {
-    className: "searchbar",
-    onkeydown: (event) => getCharacters(event.target.value), //mit tastatureingabe wird geprüft ob es einen ausgabe wert gibt
+
+  const search = Search({
+    onchange: (value) => getCharacters(value),
   });
 
   getCharacters(); //was ist das?
 
   const container = createElement("div", {
     className: "container",
-    children: [header, Search, main], //warum wird nicht appended?
+    children: [header, search, main], //warum wird nicht appended?
   });
 
   return container;
