@@ -6,8 +6,11 @@ export async function getCharacterById(id) {
   return character;
 }
 
-export async function getAllCharacters() {
-  const url = "https://rickandmortyapi.com/api/character";
+export async function getAllCharacters(name) {
+  let url = `https://rickandmortyapi.com/api/character/`;
+  if (name) {
+    url += `?name=${name}`;
+  }
   const response = await fetch(url);
   const characterAll = await response.json();
 
