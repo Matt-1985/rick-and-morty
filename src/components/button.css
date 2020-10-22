@@ -1,4 +1,17 @@
 .loadButton {
+  background: whitesmoke;
+  color: black;
   border-radius: 10px;
   border: 1px solid black;
+  padding: 0.5rem;
+  font-weight: bold;
+}
+
+.button:active {
+  background: black;
+  color: white;
+}
+
+.button:disabled {
+  display: none;
 }

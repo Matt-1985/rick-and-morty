@@ -49,6 +49,8 @@ function App() {
     nextPage = allCharacters.info.next?.match(/\d+/)[0];
     loadInfityButton.disabled = !allCharacters.info.next;
     lastName = name;
+
+    main.append(loadInfityButton);
   }
 
   const search = Search({
@@ -64,6 +66,18 @@ function App() {
     className: "container",
     children: [header, search, main], //warum wird nicht appended?
   });
+
+  window.addEventListener("scroll", () => {
+    const offsetY =
+      loadInfityButton.offsetParent.offsetHeight - window.innerHeight - 200; //mit der zahl steuert man wann man den knopf sieht, wieviel pixel sind gerladen die wir nicht sehen
+    if (offsetY < window.pageYOffset) {
+      loadInfityButton.click();
+    }
+  }); //Führ das klicken selber aus wenn die bestimmte
+
+  //window.offset --> die höhe eines elements der den button begerbergt
+  //window.innerheight -->
+  //window.pageYOffset -->
 
   return container;
 }
