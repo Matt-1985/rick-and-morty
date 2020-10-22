@@ -10,5 +10,17 @@ html {
 
 body {
   margin: 0;
-  background: darkslategray;
+  background: #bdb76b;
+}
+
+.main {
+  height: auto;
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+}
+
+input {
+  align-items: center;
 }
