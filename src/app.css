@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+
 *,
 *::before,
 *::after {
@@ -6,6 +8,7 @@
 
 html {
   font-size: 16px;
+  font-family: "Staatliches", cursive;
 }
 
 body {
@@ -14,11 +17,7 @@ body {
 }
 
 .main {
-  height: auto;
-  display: grid;
-  grid-gap: 0.5rem;
-  grid-template-columns: repeat(3, 1fr);
-  text-align: center;
+  padding: 30px 20px;
 }
 
 input {

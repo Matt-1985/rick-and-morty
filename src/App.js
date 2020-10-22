@@ -7,10 +7,6 @@ import Characters from "./components/characters";
 import Search from "./components/Search";
 import button from "./components/button";
 
-function App() {
-  const header = Header();
-
-
 //console.log(getAllCharacters());
 
 function App() {
@@ -48,16 +44,16 @@ function App() {
         imgSrc: character.image,
       })
     );
-    main.append(...newCharacters); //"newCharacters" wir nun an "main" geheftet (spread operator) / warum nicht als children?
+    characters.append(...newCharacters); //"newCharacters" wir nun an "main" geheftet (spread operator) / warum nicht als children?
 
-    nextPage = characters.info.next?.match(/\d+/)[0];
-    loadInfityButton.disabled = !characters.info.next;
+    nextPage = allCharacters.info.next?.match(/\d+/)[0];
+    loadInfityButton.disabled = !allCharacters.info.next;
     lastName = name;
   }
 
   const search = Search({
     onchange: (value) => {
-      main.innerHTML = "";
+      characters.innerHTML = "";
       getCharacters(value);
     },
   });
@@ -69,7 +65,6 @@ function App() {
     children: [header, search, main], //warum wird nicht appended?
   });
 
-  const container = createElement("div", { children: [header, main] });
   return container;
 }
 

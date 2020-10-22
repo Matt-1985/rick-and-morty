@@ -1,0 +1,13 @@
+.character {
+  border: none;
+  border-radius: 10px;
+  background: #ffffe0;
+  max-width: 1000px;
+  margin: auto;
+  justify-content: center;
+}
+
+.h3 {
+  font-size: 26px;
+  text-align: center;
+}
