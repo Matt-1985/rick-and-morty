@@ -5,26 +5,37 @@ import Character from "./components/character";
 import { getAllCharacters } from "./utils/api";
 import Characters from "./components/characters";
 import Search from "./components/Search";
+import button from "./components/button";
 
 //console.log(getAllCharacters());
 
 function App() {
+  let lastName = null;
+  let nextPage = null;
+
   const header = Header(); //"Header" ist in "header.js" vordefiniert und wird damit reingeholt
 
   const characters = Characters();
   //wird erstellt in "characters.js" als "section" element zum stylen
 
+  const loadInfityButton = button({
+    innerText: "more shwifty",
+    onclick: () => {
+      getCharacters(lastName, nextPage);
+    },
+  });
+
   const main = createElement("main", {
     //"main" Element wird erstellt
     className: "main", //classe wird vergeben
-    children: [characters], //array "children" wird erstellt von "serviervorschlag" in ("character.js")
+    children: [characters, loadInfityButton], //array "children" wird erstellt von "serviervorschlag" in ("character.js")
   });
 
-  async function getCharacters(name) {
+  async function getCharacters(name, page) {
     //welches name ist das?
     //asymetrische funktion erstellt
-    const allCharacters = await getAllCharacters(name); //neue variablable wird erstellt und sagt das auf die abfrage gewartet werden muss
-    const newCharacters = allCharacters.map((
+    const allCharacters = await getAllCharacters(name, page); //neue variablable wird erstellt und sagt das auf die abfrage gewartet werden muss
+    const newCharacters = allCharacters.results.map((
       character //map wird erstellt (ein neues array mit neuem wert "character")
     ) =>
       Character({
@@ -33,12 +44,20 @@ function App() {
         imgSrc: character.image,
       })
     );
-    main.innerHTML = "";
-    main.append(...newCharacters); //"newCharacters" wir nun an "main" geheftet (spread operator) / warum nicht als children?
+    characters.append(...newCharacters); //"newCharacters" wir nun an "main" geheftet (spread operator) / warum nicht als children?
+
+    nextPage = allCharacters.info.next?.match(/\d+/)[0];
+    loadInfityButton.disabled = !allCharacters.info.next;
+    lastName = name;
+
+    main.append(loadInfityButton);
   }
 
   const search = Search({
-    onchange: (value) => getCharacters(value),
+    onchange: (value) => {
+      characters.innerHTML = "";
+      getCharacters(value);
+    },
   });
 
   getCharacters(); //was ist das?
@@ -47,6 +66,18 @@ function App() {
     className: "container",
     children: [header, search, main], //warum wird nicht appended?
   });
+
+  window.addEventListener("scroll", () => {
+    const offsetY =
+      loadInfityButton.offsetParent.offsetHeight - window.innerHeight - 200; //mit der zahl steuert man wann man den knopf sieht, wieviel pixel sind gerladen die wir nicht sehen
+    if (offsetY < window.pageYOffset) {
+      loadInfityButton.click();
+    }
+  }); //Führ das klicken selber aus wenn die bestimmte
+
+  //window.offset --> die höhe eines elements der den button begerbergt
+  //window.innerheight -->
+  //window.pageYOffset -->
 
   return container;
 }

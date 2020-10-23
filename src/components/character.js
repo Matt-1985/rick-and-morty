@@ -2,22 +2,20 @@ import "./character.css";
 import { createElement } from "../utils/elements";
 
 function Character({ name, imgSrc }) {
-  const title = createElement("div", {
-    className: "h3",
+  const title = createElement("p", {
+    className: "character__title",
     innerText: name,
   });
   const avatar = createElement("img", {
+    className: "character__img",
     src: imgSrc,
     alt: name,
+    loading: "lazy",
   });
-  const characterContainer = createElement("div", {
-    className: "card",
-  });
-  const container = createElement("div", {
+  const container = createElement("article", {
     className: "character",
-    children: [characterContainer, title, avatar],
+    children: [title, avatar],
   });
-
   return container;
 }
 
